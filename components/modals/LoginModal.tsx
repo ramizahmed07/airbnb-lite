@@ -74,7 +74,7 @@ export default function LoginModal() {
       <Button onClick={() => {}} outline icon={FcGoogle}>
         Continue with Google
       </Button>
-      <Button onClick={() => {}} outline icon={AiFillGithub}>
+      <Button onClick={() => signIn("github")} outline icon={AiFillGithub}>
         Continue with Github
       </Button>
       <div className="justify-center text-neutral-500 mt-4 font-light flex flex-row items-center gap-2">

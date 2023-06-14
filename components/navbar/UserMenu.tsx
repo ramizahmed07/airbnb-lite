@@ -12,11 +12,10 @@ import { User } from "@prisma/client";
 
 export default function UserMenu() {
   const { data: session } = useSession();
-
   const { onOpen } = useRegisterModal();
   const { onOpen: onOpenLoginModal } = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
-
+  console.log("session", session);
   const toggleOpen = useCallback(() => {
     setIsOpen((currentValue) => !currentValue);
   }, []);
@@ -40,7 +39,7 @@ export default function UserMenu() {
         >
           <AiOutlineMenu />
           <div className="hidden md:block ">
-            <Avatar />
+            <Avatar src={session?.user?.image} />
           </div>
         </div>
       </div>
