@@ -2,9 +2,10 @@
 
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import { signIn } from "next-auth/react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 
 import useRegisterModal from "@/hooks/useRegisterModal";
@@ -75,10 +76,10 @@ export default function RegisterModal() {
   const footer = (
     <div className="flex flex-col gap-4 mt-3 ">
       <hr />
-      <Button onClick={() => {}} outline icon={FcGoogle}>
+      <Button onClick={() => signIn("google")} outline icon={FcGoogle}>
         Continue with Google
       </Button>
-      <Button onClick={() => {}} outline icon={AiFillGithub}>
+      <Button onClick={() => signIn("github")} outline icon={AiFillGithub}>
         Continue with Github
       </Button>
       <div className="justify-center text-neutral-500 mt-4 font-light flex flex-row items-center gap-2">
