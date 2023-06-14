@@ -1,20 +1,22 @@
 "use client";
 
 import toast from "react-hot-toast";
-import axios from "axios";
-import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useState } from "react";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 
-import useRegisterModal from "@/hooks/useRegisterModal";
+import useLoginModal from "@/hooks/useLoginModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Button from "@/components/Button";
 
-export default function RegisterModal() {
-  const { isOpen, onClose } = useRegisterModal();
+export default function LoginModal() {
+  const router = useRouter();
+  const { isOpen, onClose } = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -23,7 +25,6 @@ export default function RegisterModal() {
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
@@ -32,29 +33,24 @@ export default function RegisterModal() {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    axios
-      .post("/api/register", data)
-      .then(() => {
+    signIn("credentials", { ...data, redirect: false }).then((res) => {
+      setIsLoading(false);
+      if (!res?.error) {
+        toast.success("Logged in");
+        router.refresh();
         onClose();
-      })
-      .catch(() => toast.error("Something went wrong"))
-      .finally(() => setIsLoading(false));
+      } else {
+        toast.error(res.error);
+      }
+    });
   };
 
   const body = (
     <div className="flex flex-col gap-4">
-      <Heading title="Welcome to Airbnb" subtitle="Create an Account" />
+      <Heading title="Welcome back" subtitle="Login to your account!" />
       <Input
         id="email"
         label="Email"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <Input
-        id="name"
-        label="Name"
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -97,7 +93,7 @@ export default function RegisterModal() {
     <Modal
       disabled={isLoading}
       isOpen={isOpen}
-      title="Register"
+      title="Login"
       actionLabel="Continue"
       onClose={onClose}
       onSubmit={handleSubmit(onSubmit)}

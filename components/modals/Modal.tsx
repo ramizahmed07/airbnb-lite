@@ -52,7 +52,7 @@ export default function Modal({
     if (disabled || !secondaryAction) return;
     secondaryAction();
   }, [disabled, secondaryAction]);
-  console.log({ isOpen });
+
   if (!isOpen) {
     return null;
   }
@@ -60,7 +60,7 @@ export default function Modal({
   return (
     <>
       <div
-        className="justify-center flex items-center overflow-x-hidden overflow-y-auto fixed inset-0
+        className="justify-center flex items-center overflow-hidden fixed inset-0
     z-50 outline-none focus:outline-none bg-neutral-800/70
   "
       >
