@@ -13,10 +13,12 @@ import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import Button from "@/components/Button";
+import useRegisterModal from "@/hooks/useRegisterModal";
 
 export default function LoginModal() {
   const router = useRouter();
-  const { isOpen, onClose } = useLoginModal();
+  const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -38,7 +40,7 @@ export default function LoginModal() {
       if (!res?.error) {
         toast.success("Logged in");
         router.refresh();
-        onClose();
+        loginModal.onClose();
       } else {
         toast.error(res.error);
       }
@@ -77,13 +79,17 @@ export default function LoginModal() {
       <Button onClick={() => signIn("github")} outline icon={AiFillGithub}>
         Continue with Github
       </Button>
+
       <div className="justify-center text-neutral-500 mt-4 font-light flex flex-row items-center gap-2">
-        <div>Already have an account?</div>
+        <div>First time using airbnb?</div>
         <div
-          onClick={onClose}
+          onClick={() => {
+            loginModal.onClose();
+            registerModal.onOpen();
+          }}
           className="text-neutral-800 cursor-pointer hover:underline"
         >
-          Log in
+          Create an account
         </div>
       </div>
     </div>
@@ -92,10 +98,10 @@ export default function LoginModal() {
   return (
     <Modal
       disabled={isLoading}
-      isOpen={isOpen}
+      isOpen={loginModal.isOpen}
       title="Login"
       actionLabel="Continue"
-      onClose={onClose}
+      onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={body}
       footer={footer}

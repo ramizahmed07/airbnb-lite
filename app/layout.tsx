@@ -1,8 +1,10 @@
 import { Toaster } from "react-hot-toast";
 import { Nunito } from "next/font/google";
 
+import { getCurrentUser } from "@/actions/getCurrentUser";
 import Navbar from "@/components/navbar/Navbar";
 import RegisterModal from "@/components/modals/RegisterModal";
+import RentModal from "@/components/modals/RentModal";
 import LoginModal from "@/components/modals/LoginModal";
 import AuthSessionProvider from "@/providers/AuthSessionProvider";
 import "./globals.css";
@@ -21,6 +23,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const user = await getCurrentUser();
   return (
     <html lang="en">
       <body className={font.className}>
@@ -28,8 +31,9 @@ export default async function RootLayout({
           <Toaster />
           <RegisterModal />
           <LoginModal />
+          <RentModal />
           {/* @ts-expect-error Server Component */}
-          <Navbar />
+          <Navbar user={user} />
           {children}
         </AuthSessionProvider>
       </body>

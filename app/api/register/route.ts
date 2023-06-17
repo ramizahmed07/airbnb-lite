@@ -10,13 +10,5 @@ export async function POST(req: Request) {
   const user = await prisma.user.create({
     data: { email, name, hashedPassword },
   });
-  // const res = await fetch('https://data.mongodb-api.com/...', {
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'API-Key': process.env.DATA_API_KEY,
-  //   },
-  // })
-  // const data = await res.json()
-
   return NextResponse.json(user);
 }

@@ -1,3 +1,5 @@
+import { User } from "@prisma/client";
+
 import { getCurrentUser } from "@/actions/getCurrentUser";
 import Container from "../Container";
 import Categories from "./Categories";
@@ -5,8 +7,11 @@ import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
 
-export default async function Navbar() {
-  const user = await getCurrentUser();
+interface NavbarProps {
+  user: User;
+}
+
+export default async function Navbar({ user }: NavbarProps) {
   return (
     <div className="fixed w-full bg-white z-10 shadow-sm">
       <div className="py-4 border-b-[1px]">
@@ -14,7 +19,7 @@ export default async function Navbar() {
           <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
             <Logo />
             <Search />
-            <UserMenu />
+            <UserMenu user={user} />
           </div>
         </Container>
       </div>
