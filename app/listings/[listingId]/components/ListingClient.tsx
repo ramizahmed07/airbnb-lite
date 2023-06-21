@@ -22,16 +22,29 @@ const initialDateRange = {
 };
 
 interface ListingClientProps {
-  reservations?: Omit<
-    Reservation,
-    "createdAt" | "startDate" | "endDate" | "listing"
-  > &
-    {
+  reservations?: {
+    createdAt: string;
+    startDate: string;
+    endDate: string;
+    listing: {
       createdAt: string;
-      startDate: string;
-      endDate: string;
-      listing: Listing;
-    }[];
+      id: string;
+      title: string;
+      description: string;
+      imageSrc: string;
+      category: string;
+      roomCount: number;
+      bathroomCount: number;
+      guestCount: number;
+      locationValue: string;
+      userId: string;
+      price: number;
+    };
+    id: string;
+    userId: string;
+    listingId: string;
+    totalPrice: number;
+  }[];
   listing: Listing & {
     user: User;
   };

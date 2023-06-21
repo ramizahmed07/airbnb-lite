@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { signOut } from "next-auth/react";
 import { User } from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 import useRegisterModal from "@/hooks/useRegisterModal";
 import useLoginModal from "@/hooks/useLoginModal";
@@ -16,6 +17,7 @@ interface UserMenuProps {
 }
 
 export default function UserMenu({ user }: UserMenuProps) {
+  const router = useRouter();
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const rentModal = useRentModal();
@@ -70,7 +72,9 @@ export default function UserMenu({ user }: UserMenuProps) {
           <div className="flex flex-col cursor-pointer">
             {user ? (
               <>
-                <MenuItem onClick={() => {}}>My trips</MenuItem>
+                <MenuItem onClick={() => router.push("/trips")}>
+                  My trips
+                </MenuItem>
                 <MenuItem onClick={() => {}}>My favorites</MenuItem>
                 <MenuItem onClick={() => {}}>My reservations</MenuItem>
                 <MenuItem onClick={() => {}}>My properties</MenuItem>

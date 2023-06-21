@@ -17,7 +17,7 @@ interface ListingCardProps {
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
-  user: User | null;
+  user: User | null | undefined;
 }
 
 export default function ListingCard({
