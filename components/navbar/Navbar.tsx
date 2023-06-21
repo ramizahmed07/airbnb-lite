@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 
-import { getCurrentUser } from "@/actions/getCurrentUser";
+import getCurrentUser from "@/actions/getCurrentUser";
 import Container from "../Container";
 import Categories from "./Categories";
 import Logo from "./Logo";

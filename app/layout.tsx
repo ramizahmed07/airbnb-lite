@@ -1,12 +1,12 @@
 import { Toaster } from "react-hot-toast";
 import { Nunito } from "next/font/google";
 
-import { getCurrentUser } from "@/actions/getCurrentUser";
 import Navbar from "@/components/navbar/Navbar";
 import RegisterModal from "@/components/modals/RegisterModal";
 import RentModal from "@/components/modals/RentModal";
 import LoginModal from "@/components/modals/LoginModal";
 import AuthSessionProvider from "@/providers/AuthSessionProvider";
+import getCurrentUser from "@/actions/getCurrentUser";
 import "./globals.css";
 
 const font = Nunito({
@@ -34,7 +34,7 @@ export default async function RootLayout({
           <RentModal />
           {/* @ts-expect-error Server Component */}
           <Navbar user={user} />
-          {children}
+          <div className="pb-20 pt-28">{children}</div>
         </AuthSessionProvider>
       </body>
     </html>
