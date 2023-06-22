@@ -7,6 +7,7 @@ import RentModal from "@/components/modals/RentModal";
 import LoginModal from "@/components/modals/LoginModal";
 import AuthSessionProvider from "@/providers/AuthSessionProvider";
 import getCurrentUser from "@/actions/getCurrentUser";
+import SearchModal from "@/components/modals/SearchModal";
 import "./globals.css";
 
 const font = Nunito({
@@ -31,6 +32,7 @@ export default async function RootLayout({
           <Toaster />
           <RegisterModal />
           <LoginModal />
+          <SearchModal />
           <RentModal />
           {/* @ts-expect-error Server Component */}
           <Navbar user={user} />
