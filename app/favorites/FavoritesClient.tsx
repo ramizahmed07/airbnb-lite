@@ -1,3 +1,5 @@
+"use client";
+
 import { User } from "@prisma/client";
 
 import { SafeListing } from "@/types";
