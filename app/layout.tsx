@@ -9,6 +9,7 @@ import AuthSessionProvider from "@/providers/AuthSessionProvider";
 import getCurrentUser from "@/actions/getCurrentUser";
 import SearchModal from "@/components/modals/SearchModal";
 import "./globals.css";
+import ClientOnly from "@/components/ClientOnly";
 
 const font = Nunito({
   subsets: ["latin"],
@@ -29,13 +30,15 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <AuthSessionProvider>
-          <Toaster />
-          <RegisterModal />
-          <LoginModal />
-          <SearchModal />
-          <RentModal />
-          {/* @ts-expect-error Server Component */}
-          <Navbar user={user} />
+          <ClientOnly>
+            <Toaster />
+            <RegisterModal />
+            <LoginModal />
+            <SearchModal />
+            <RentModal />
+            {/* @ts-expect-error Server Component */}
+            <Navbar user={user} />
+          </ClientOnly>
           <div className="pb-20 pt-28">{children}</div>
         </AuthSessionProvider>
       </body>
